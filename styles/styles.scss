@@ -202,14 +202,92 @@ section {
 /*About*/
 .about-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /* each column should be at least 30vw but grow if extra space */
+    grid-template-columns: repeat(2, minmax(30vw, 1fr));
+    grid-gap: 2rem;
+    align-items: stretch; /* ensure both columns are equal height */
+    width: 60vw;            /* make the whole section span 60% of viewport */
+    margin: 0 auto;         /* center it horizontally */
     padding-top: 3.5rem;
     padding-bottom: 5rem;
-    .right-about {
+    /* ensure cards in this grid always span full column width */
+    & > .left-about-skill .about-item,
+    & > .right-about .about-item {
+        width: 100%;
+    }
+}
+
+/* remove grid behaviour for the nested skills-container */
+.about-container.skills-container {
+    display: block;        /* let it flow normally */
+    width: auto;
+    margin: 0;
+    padding: 0;
+    /* disable any inherited grid settings */
+    grid-template-columns: none !important;
+    grid-gap: 0 !important;
+}
+
+/* additional helper class for right column inside skills section */
+.skills-right {
+    /* you can declare any specific layout or spacing here */
+    margin-top: 1rem; /* example adjustment */
+}
+    /* apply same grid layout to both types of right-about columns */
+    .right-about, .right-about-skills {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 2rem;
         .about-item {
+            border: 1px solid var(--color-grey-5);
+            border-radius: 5px;
+            transition: all .4s ease-in-out;
+            box-shadow: 1px 2px 15px rgba(0,0,0,.1);
+            /* base hover styling; skills will override below */
+            &:hover {
+                cursor: default;
+                transform: translateY(-5px);
+                border: 1px solid var(--color-secondary);
+                box-shadow: 1px 4px 15px rgba(0,0,0,.32);
+            }
+        }
+    }
+            .abt-text {
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                .large-text {
+                    font-size: 3rem;
+                    font-weight: 700;
+                    color: var(--color-secondary);
+                }
+                .small-text {
+                    padding-left: 3rem;
+                    position: relative;
+                    text-transform: uppercase;
+                    font-size: 1rem;
+                    color: var(--color-grey-1);
+                    letter-spacing: 2px;
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        top: 15px;
+                        width: 2rem;
+                        height: 2px;
+                        background-color: var(--color-grey-5);
+                    }
+                }
+            }
+        
+
+
+    /* add a matching bordered item for the FRESHER box */
+    .left-about-skill {
+        /* fill available height from grid cell */
+        display: flex;
+        .about-item {
+            height: 100%;
             border: 1px solid var(--color-grey-5);
             border-radius: 5px;
             transition: all .4s ease-in-out;
@@ -233,7 +311,7 @@ section {
                     padding-left: 3rem;
                     position: relative;
                     text-transform: uppercase;
-                    font-size: 1.2rem;
+                    font-size: 1rem;
                     color: var(--color-grey-1);
                     letter-spacing: 2px;
                     &::before {
@@ -262,7 +340,7 @@ section {
             text-transform: uppercase;
         }
     }
-}
+
 
 .about-stats {
     padding-bottom: 4rem;
@@ -666,6 +744,17 @@ section {
             font-size: 6.3rem;
         }
     }
+}
+
+/* layout for contact form buttons */
+.submit-btn-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; /* allows wrapping on small screens */
+    justify-content: flex-end; /* align buttons right */
+}
+.submit-btn-container .submit-btn {
+    flex: 1 1 auto;
 }
 
 @import './media';

@@ -208,16 +208,36 @@ section {
 /*About*/
 .about-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* make each cell at least 30vw wide */
+  grid-template-columns: repeat(2, minmax(30vw, 1fr));
+  grid-gap: 2rem;
+  align-items: stretch;
+  width: 60vw;
+  margin: 0 auto;
   padding-top: 3.5rem;
   padding-bottom: 5rem;
 }
-.about-container .right-about {
+.about-container > .left-about-skill .about-item,
+.about-container > .right-about .about-item {
+  width: 100%;
+}
+/* disable grid rules for specialized container */
+.about-container.skills-container {
+  display: block;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: none !important;
+  grid-gap: 0 !important;
+}
+.about-container .right-about,
+.about-container .right-about-skills {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 2rem;
 }
-.about-container .right-about .about-item {
+.about-container .right-about .about-item,
+.about-container .right-about-skills .about-item {
   border: 1px solid var(--color-grey-5);
   border-radius: 5px;
   transition: all 0.4s ease-in-out;
@@ -229,6 +249,7 @@ section {
   border: 1px solid var(--color-secondary);
   box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.32);
 }
+
 .about-container .right-about .about-item .abt-text {
   padding: 1.5rem;
   display: flex;
@@ -243,7 +264,7 @@ section {
   padding-left: 3rem;
   position: relative;
   text-transform: uppercase;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--color-grey-1);
   letter-spacing: 2px;
 }
@@ -256,6 +277,51 @@ section {
   height: 2px;
   background-color: var(--color-grey-5);
 }
+/* mirror the right-about cards for the left-about-skill section */
+.about-container .left-about-skill {
+  display: flex;
+}
+.about-container .left-about-skill .about-item {
+  height: 100%;
+  border: 1px solid var(--color-grey-5);
+  border-radius: 5px;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 1px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.about-container .left-about-skill .about-item:hover {
+  cursor: default;
+  transform: translateY(-5px);
+  border: 1px solid var(--color-secondary);
+  box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.32);
+}
+.about-container .left-about-skill .about-item .abt-text {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.about-container .left-about-skill .about-item .abt-text .large-text {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+.about-container .left-about-skill .about-item .abt-text .small-text {
+  padding-left: 3rem;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: var(--color-grey-1);
+  letter-spacing: 2px;
+}
+.about-container .left-about-skill .about-item .abt-text .small-text::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 15px;
+  width: 2rem;
+  height: 2px;
+  background-color: var(--color-grey-5);
+}
+
 .about-container .left-about {
   padding-right: 5rem;
 }
@@ -615,7 +681,7 @@ section {
 }
 .contact-content-con .right-contact .submit-btn {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 /*Independed components*/
@@ -959,6 +1025,17 @@ section {
   .main-title h2 .bg-text {
     font-size: 4rem;
   }
+}
+
+/* layout for contact form buttons */
+.submit-btn-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.submit-btn-container .submit-btn {
+  flex: 1 1 auto;
 }
 
 /*# sourceMappingURL=styles.css.map */
